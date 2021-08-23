@@ -1,13 +1,13 @@
 from mamba import description, it, context, before
 from expects import expect, equal
 from repository import StubEmployeeRepository, Employee
-from endpoint import EndPoint
+from employee_endpoint import EmployeeEndPoint
 
-with description(EndPoint) as self:
+with description(EmployeeEndPoint) as self:
 
   with context("Given a new repository"):
     with before.each:
-      self.endpoint = EndPoint(StubEmployeeRepository())
+      self.endpoint = EmployeeEndPoint(StubEmployeeRepository())
 
     with context("When querying the size"):
       with it("should return three"):

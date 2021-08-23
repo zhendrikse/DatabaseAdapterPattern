@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 import uvicorn
 from repository import ReplitDbEmployeeRepository, Employee
-from endpoint import EndPoint
+from employee_endpoint import EmployeeEndPoint
 
 
 app = FastAPI()
-endpoint = EndPoint(ReplitDbEmployeeRepository())
+endpoint = EmployeeEndPoint(ReplitDbEmployeeRepository())
 
 @app.get("/")
 def read_root():
@@ -15,8 +15,8 @@ def read_root():
 def list_all_employees():
   return endpoint.get_all_employees()
 
-@app.put("/employee")
-def add_new_employee(employee: Employee, employee_id: str):
-  endpoint.add_employee(employee, employee_id)
+# @app.put("/employee")
+# def add_new_employee(employee: Employee, employee_id: str):
+#   endpoint.add_employee(employee, employee_id)
 
 uvicorn.run(app,host="0.0.0.0",port=8080)

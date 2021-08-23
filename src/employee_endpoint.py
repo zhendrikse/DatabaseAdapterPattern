@@ -1,6 +1,6 @@
 from repository import EmployeeRepository, Employee
 
-class EndPoint():
+class EmployeeEndPoint():
   def __init__(self, employeeRepo: EmployeeRepository):
     self.employeeRepository = employeeRepo
 
