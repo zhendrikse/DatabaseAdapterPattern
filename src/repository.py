@@ -36,7 +36,10 @@ class ReplitDbEmployeeRepository(EmployeeRepository):
     return len(db)
 
   def all(self) -> [Employee]:
-    return db.values()
+    employees = []
+    for employee_id in db.keys():
+      employees.append(db[employee_id])
+    return employees
 
   def get_by_id(self, id: str) -> Employee:
     name = db.get(id)
