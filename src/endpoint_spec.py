@@ -1,6 +1,7 @@
 from mamba import description, it, context, before
 from expects import expect, equal
-from repository import StubEmployeeRepository, Employee
+from repository import StubEmployeeRepository
+from employee import Employee
 from employee_endpoint import EmployeeEndPoint
 
 with description(EmployeeEndPoint) as self:
@@ -24,7 +25,7 @@ with description(EmployeeEndPoint) as self:
         try:
           self.endpoint.get_employee_by_id('xxx')
           raise("Non-existing employee should not be found")
-        except:
+        except KeyError:
           pass
 
     with context("When adding a new employee"):
