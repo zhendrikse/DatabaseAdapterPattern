@@ -2,8 +2,6 @@ from replit import db
 from employee import Employee
 
 class EmployeeRepository():
-  def size(self) -> int: pass
-
   def all(self) -> [Employee]: pass
 
   def get_by_id(self, id: str) -> Employee: pass
@@ -18,9 +16,6 @@ class StubEmployeeRepository(EmployeeRepository):
     "003": Employee("Misbah") 
   }
 
-  def size(self) -> int:
-    return len(self.employees_by_id)
-
   def all(self) -> [Employee]:
     return self.employees_by_id.values()
 
@@ -32,9 +27,6 @@ class StubEmployeeRepository(EmployeeRepository):
 
 
 class ReplitDbEmployeeRepository(EmployeeRepository):
-  def size(self) -> int:
-    return len(db)
-
   def all(self) -> [Employee]:
     employees = []
     for employee_id in db.keys():

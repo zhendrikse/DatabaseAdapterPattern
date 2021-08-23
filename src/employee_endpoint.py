@@ -9,7 +9,7 @@ class EmployeeEndPoint():
     return self.employeeRepository.all()
 
   def number_of_employees(self) -> int:
-    return self.employeeRepository.size()
+    return len(self.employeeRepository.all())
 
   def get_employee_by_id(self, employee_id:str) -> Employee:
     return self.employeeRepository.get_by_id(employee_id)
