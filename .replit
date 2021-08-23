@@ -1,1 +1,1 @@
-run="mamba --format=documentation *_spec.py"
+run="cd src;mamba --format=documentation *_spec.py"
