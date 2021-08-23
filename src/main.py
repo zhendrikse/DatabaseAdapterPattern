@@ -11,8 +11,12 @@ endpoint = EndPoint(ReplitDbEmployeeRepository())
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/all")
-def all():
+@app.get("/employee")
+def list_all_employees():
   return endpoint.get_all_employees()
+
+@app.put("/employee")
+def add_new_employee(employee: Employee, employee_id: str):
+  endpoint.add_employee(employee, employee_id)
 
 uvicorn.run(app,host="0.0.0.0",port=8080)
