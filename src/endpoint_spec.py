@@ -1,9 +1,9 @@
 from mamba import description, it, context, before
 from expects import expect, equal
-from repository import EmployeeRepository, StubEmployeeRepository, Employee
+from repository import StubEmployeeRepository, Employee
 from endpoint import EndPoint
 
-with description(EmployeeRepository) as self:
+with description(EndPoint) as self:
 
   with context("Given a new repository"):
     with before.each:
