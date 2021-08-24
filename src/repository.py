@@ -45,4 +45,8 @@ class ReplitDbEmployeeRepository(EmployeeRepository):
 
   def delete(self, employee_id: str) -> None:
     del db[employee_id]
+  
+  # def toJson(self):
+  #   return json.dumps(self, default=lambda o: o.__dict__)
+
 
