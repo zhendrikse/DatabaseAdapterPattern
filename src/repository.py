@@ -28,14 +28,10 @@ class StubEmployeeRepository(EmployeeRepository):
 
 class ReplitDbEmployeeRepository(EmployeeRepository):
   def all(self) -> [Employee]:
-    employees = []
-    for employee_id in db.keys():
-      employees.append(db[employee_id])
-    return employees
+    return (db[employee_id] for employee_id in db.keys())
 
   def get_by_id(self, id: str) -> Employee:
-    name = db.get(id)
-    if name:
+    if db.get(id):
       return Employee(db.get(id))
     raise KeyError(id)
 
