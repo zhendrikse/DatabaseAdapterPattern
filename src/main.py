@@ -12,7 +12,8 @@ router = InferringRouter()
 
 @cbv(router) 
 class EmployeeEndpoint:
-    controller = Controller(ReplitDbEmployeeRepository())
+    def __init__(self, custom_controller = Controller(ReplitDbEmployeeRepository())):
+      self.controller = custom_controller
 
     @router.get("/")
     def ping(self) -> str:
