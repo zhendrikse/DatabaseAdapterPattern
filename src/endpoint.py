@@ -4,7 +4,6 @@ from fastapi_utils.inferring_router import InferringRouter
 import uvicorn
 
 from repository import ReplitDbEmployeeRepository
-from controller import Controller
 from employee import Employee
 
 app = FastAPI()
@@ -12,8 +11,8 @@ router = InferringRouter()
 
 @cbv(router) 
 class EmployeeEndpoint:
-    def __init__(self, custom_controller = Controller(ReplitDbEmployeeRepository())):
-      self.controller = custom_controller
+    def __init__(self, repository = ReplitDbEmployeeRepository()):
+      self.repo = repository
 
     @router.get("/")
     def ping(self) -> str:
@@ -21,15 +20,15 @@ class EmployeeEndpoint:
 
     @router.get("/employees")
     def list_all_employees(self):
-      return self.controller.get_all_employees()
+      return self.repo.all()
 
     @router.get("/employees/{employee_id}")
     def get_employee_by_id(self, employee_id: str):
       try:
-        return self.controller.get_employee_by_id(employee_id)
+        return self.repo.get_by_id(employee_id)
       except KeyError:
         raise HTTPException(status_code=404, detail="Item not found")
 
     @router.put("/employees", status_code=201)
     def add_new_employee(self, name: str, employee_id: str):
-      self.controller.add_employee(Employee(name), employee_id)
+      self.repo.add(Employee(name), employee_id)

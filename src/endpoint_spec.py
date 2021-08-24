@@ -6,12 +6,11 @@ from fastapi import HTTPException
 from endpoint import EmployeeEndpoint
 from repository import StubEmployeeRepository
 from employee import Employee
-from controller import Controller
 
 with description(EmployeeEndpoint) as self:
   with context("Given an employee endpoint"):
     with before.each:
-      self.endpoint = EmployeeEndpoint(Controller(StubEmployeeRepository()))
+      self.endpoint = EmployeeEndpoint(StubEmployeeRepository())
 
     with context("When inovking GET on /employees"):
       with it("should return three"):
