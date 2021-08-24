@@ -1,7 +1,7 @@
 from repository import EmployeeRepository
 from employee import Employee
 
-class EmployeeEndPoint():
+class Controller():
   def __init__(self, employeeRepo: EmployeeRepository):
     self.employeeRepository = employeeRepo
 
