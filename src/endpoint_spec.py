@@ -4,13 +4,13 @@ from expects import expect, equal
 from fastapi import HTTPException
 
 from endpoint import EmployeeEndpoint
-from repository import StubEmployeeRepository
+from repository import StubRepoFactory
 from employee import Employee
 
 with description(EmployeeEndpoint) as self:
   with context("Given an employee endpoint"):
     with before.each:
-      self.repo = StubEmployeeRepository()
+      self.repo = StubRepoFactory.get_repo()
       self.endpoint = EmployeeEndpoint()
 
     with context("When inovking GET on /employees"):

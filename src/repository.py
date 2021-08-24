@@ -49,4 +49,12 @@ class ReplitDbEmployeeRepository(EmployeeRepository):
   # def toJson(self):
   #   return json.dumps(self, default=lambda o: o.__dict__)
 
+class StubRepoFactory:
+  @staticmethod
+  def get_repo() -> EmployeeRepository:
+    return StubEmployeeRepository()
 
+class ReplitRepoFactory:
+  @staticmethod
+  def get_repo() -> EmployeeRepository:
+    return ReplitDbEmployeeRepository()
