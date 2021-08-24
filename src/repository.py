@@ -8,13 +8,16 @@ class EmployeeRepository():
 
   def add(self, new_employee:Employee, employee_id:str) -> None: pass
 
+  def delete(self, id:str) -> None: pass
+
 
 class StubEmployeeRepository(EmployeeRepository):
-  employees_by_id = {
-    "001": Employee("Zeger"),
-    "002": Employee("Atharva"),
-    "003": Employee("Misbah") 
-  }
+  def __init__(self):
+    self.employees_by_id = {
+      "001": Employee("Zeger"),
+      "002": Employee("Atharva"),
+      "003": Employee("Misbah") 
+    }
 
   def all(self) -> [Employee]:
     return self.employees_by_id.values()
@@ -25,6 +28,8 @@ class StubEmployeeRepository(EmployeeRepository):
   def add(self, new_employee:Employee, employee_id: str) -> None:
     self.employees_by_id[employee_id] = new_employee
 
+  def delete(self, id: str) -> None:
+    self.employees_by_id.pop(id)
 
 class ReplitDbEmployeeRepository(EmployeeRepository):
   def all(self) -> [Employee]:
@@ -37,4 +42,7 @@ class ReplitDbEmployeeRepository(EmployeeRepository):
 
   def add(self, new_employee:Employee, employee_id: str) -> None:
     db[employee_id] = new_employee.name
+
+  def delete(self, employee_id: str) -> None:
+    del db[employee_id]
 
