@@ -1,31 +1,37 @@
 from fastapi import FastAPI, HTTPException
+from fastapi_utils.cbv import cbv
+from fastapi_utils.inferring_router import InferringRouter
 import uvicorn
+
 from repository import ReplitDbEmployeeRepository
 from controller import Controller
 from employee import Employee
 
-
 app = FastAPI()
-controller = Controller(ReplitDbEmployeeRepository())
+router = InferringRouter()
 
-class EmployeeEndpoint():
-  @app.get("/")
-  async def read_root():
-      return {"Status": "Up"}
+@cbv(router) 
+class EmployeeEndpoint:
+    controller = Controller(ReplitDbEmployeeRepository())
 
-  @app.get("/employees")
-  async def list_all_employees():
-    return controller.get_all_employees()
+    @router.get("/")
+    def ping(self) -> str:
+       return 'Pong'
 
-  @app.get("/employees/{employee_id}")
-  async def get_employee_by_id(employee_id: str):
-    try:
-      return controller.get_employee_by_id(employee_id)
-    except KeyError:
-      raise HTTPException(status_code=404, detail="Item not found")
+    @router.get("/employees")
+    async def list_all_employees(self):
+      return self.controller.get_all_employees()
 
-  @app.put("/employees", status_code=201)
-  def add_new_employee(name: str, employee_id: str):
-    controller.add_employee(Employee(name), employee_id)
+    @router.get("/employees/{employee_id}")
+    async def get_employee_by_id(self, employee_id: str):
+      try:
+        return self.controller.get_employee_by_id(employee_id)
+      except KeyError:
+        raise HTTPException(status_code=404, detail="Item not found")
 
+    @router.put("/employees", status_code=201)
+    def add_new_employee(self, name: str, employee_id: str):
+      self.controller.add_employee(Employee(name), employee_id)
+
+app.include_router(router)
 uvicorn.run(app,host="0.0.0.0",port=8080)
