@@ -4,7 +4,7 @@ from expects import expect, equal
 from fastapi import HTTPException
 
 from endpoint import EmployeeEndpoint
-from repository import StubRepoFactory
+from stub_repository import StubRepoFactory
 from employee import Employee
 
 with description(EmployeeEndpoint) as self:

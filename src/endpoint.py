@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi_utils.cbv import cbv
 from fastapi_utils.inferring_router import InferringRouter
 
-from repository import EmployeeRepository, ReplitRepoFactory
+from replit_db_repository import EmployeeRepository, ReplitRepoFactory
 from employee import Employee
 
 app = FastAPI()
