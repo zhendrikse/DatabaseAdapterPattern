@@ -4,6 +4,14 @@ This project demonstrates how to implement an adapter pattern in Python so that 
 
 This example illustrates [Data Access/Adapter Logic](https://khalilstemmler.com/articles/software-design-architecture/organizing-app-logic/#2-Data-Access--Adapter-Logic) as discussed in [Organizing App Logic with the Clean Architecture](https://khalilstemmler.com/articles/software-design-architecture/organizing-app-logic).
 
+## Quircks
+
+Before you can do anything at all, you must run in the shell the following command:
+
+```
+$ pip install fastapi_utils
+```
+
 ## Implementation
 
 The implementation uses a [Replit DB](https://docs.replit.com/tutorials/11-using-the-replit-database) as storage for simple [Employee](https://replit.com/@zwh/DatabaseAdapterPattern#src/repository.py) records. The calls to the Replit DB have been implemented using an adapter/repository, so that the calls to the Replit DB can easily be isolated during (unit) testing.
