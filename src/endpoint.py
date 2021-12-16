@@ -43,4 +43,8 @@ class EmployeeEndpoint:
                          name: str,
                          employee_id: str,
                          repo: EmployeeRepository = Depends(repo)):
-        repo.add(Employee(name), employee_id)
+        try:
+          repo.get_by_id(employee_id)
+          raise HTTPException(status_code=403, detail="Employee exists")
+        except KeyError:
+          repo.add(Employee(name), employee_id)
