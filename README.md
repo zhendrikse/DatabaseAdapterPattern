@@ -95,7 +95,7 @@ and modify the implementation again to make the test green.
 
 ### Creating the wrapper/adapter
 ---
-Eventually, all employee will be coming from a database. Let's bundle all these calls together into an employee repository (a term that originates from [domain driven design](https://matfrs2.github.io/RS2/predavanja/literatura/Avram%20A,%20Marinescu%20F.%20-%20Domain%20Driven%20Design%20Quickly.pdf)):
+Eventually, all employee data will be coming from a database. Let's bundle all these calls together into an employee repository (a term that originates from [domain driven design](https://matfrs2.github.io/RS2/predavanja/literatura/Avram%20A,%20Marinescu%20F.%20-%20Domain%20Driven%20Design%20Quickly.pdf)):
 
 > Repositories are classes or components that encapsulate the logic required to access data sources. They centralize common data access functionality, providing better maintainability and decoupling the infrastructure or technology used to access databases from the domain model layer &#8212; [docs.microsoft.com](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design).
 
