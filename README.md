@@ -81,7 +81,7 @@ def get_employee_by_id(self, employee_id: str):
   pass
 ```
 
-Hint: use `raise HTTPException(status_code=404, detail="Item not found")`
+Hint: use `raise HTTPException(status_code=404, detail="Employee not found")`
 
 Next, let's try to retrieve an existing employee by ID:
 
@@ -187,7 +187,7 @@ self.repo = StubRepoFactory.get_repo()
 In the production code, we can plug in the real thing:
 
 ```python
-repo = ReplitRepoFactory.get_repo
+repo = ReplitRepoFactory.get_repo()
 ```
 
 #### Passing the repo on to FastAPI endpoints
@@ -195,7 +195,7 @@ repo = ReplitRepoFactory.get_repo
 The aforementioned FastAPI perculiarity means that the methods implementing our Rest endpoints have to be able to call the repository methods. This can be done in the following way:
 
 ```python
-repo = ReplitRepoFactory.get_repo
+repo = ReplitRepoFactory.get_repo()
 
 @cbv(router)
 class EmployeeEndpoint:
@@ -209,7 +209,13 @@ class EmployeeEndpoint:
 
 After that, you can access the repo by calling e.g. `repo.get_by_id(employee_id)`.
 
-It is now your task to carry through all these changes, while keeping the tests green. In the end, you should end up with a working specification (unit test set) as well as a working application. How you can verify that has extensively been explained in the beginning of this instruction file, namely in the section "Getting acquainted". Use the live documentation as described therein.
+**Caveat**
+
+As soon as we add the `repo: EmployeeRepository = Depends(repo)` as argument to the calls in the endpoints, the calls in the specification file(s) need to be modifyied accordingly: `self.endpoint.get_employee_by_id("001", repo=self.repo)`
+
+** Exercise **
+
+It is now your task to carry out all these changes, while keeping the tests green. In the end, you should end up with a working specification (unit test set) as well as a working application. How you can verify that has extensively been explained in the beginning of this instruction file, namely in the section "Getting acquainted". Use the live documentation as described therein.
 
 
 ## Our second endpoint
@@ -227,7 +233,7 @@ def delete_employee(self,
 
 Implement this endpoint:
 
-1. writie the scenarios first (also think about what should happen when we try to delete an employee (with an ID) that does not exist)
+1. write the scenarios first (also think about what should happen when we try to delete an employee (with an ID) that does not exist)
 2. make a scenarios green first (by implementing the stub) before continuing to anything else
 3. implement the replit repository as well and test it by running the application and using the OpenAPI live documentation.
 
@@ -243,7 +249,7 @@ def add_new_employee(self,
                      repo: EmployeeRepository = Depends(repo)):
 ```
 
-Rinse and repeat the same steps as for the delete endpoint.
+Rinse and repeat the same steps as for the delete endpoint, bearing in mind that [PUT is idem potent](https://restfulapi.net/idempotent-rest-apis/), so throw a [HTTP 403 response](https://en.wikipedia.org/wiki/HTTP_403) when the resource already exists.
 
 # Retrospective
 
@@ -255,6 +261,6 @@ At a certain point, there is a balance to be struck. By incorporating more and m
 
 In our current implementation, our tests target the layer _just below_ the endpoints. This means that the marshalling and unmarshalling of the JSON in the endpoints is not tested. Usually, we would try to incorporate that as well. This would be a further optional exercise that you could do after completing this exercise.
 
-Second of all, although the logic in the replit repository is (and shoud remain) rather shallow, it may be argued that this needs to be tested as well. And that's correct! Only, by definition this then constitutes an integration tests. TDD does not make integration tests redundant! TDD tends to make them needed much less, just to ascertain a proper function at the endpoints.
+Second of all, although the logic in the replit repository is (and shoud remain) rather shallow, it may be argued that this needs to be tested as well. And that's correct! Only, by definition this then constitutes an integration test. TDD does not make integration tests redundant! TDD tends to make them much less needed, just to ascertain a proper functioning at the integration points with external systems.
 
 As this course is about TDD, we leave the topic of integration tests now for what it is. That does not mean they can be skipped, of course!
